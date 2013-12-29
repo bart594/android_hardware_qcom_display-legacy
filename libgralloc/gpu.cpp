@@ -58,6 +58,10 @@ int gpu_context_t::gralloc_alloc_framebuffer_locked(size_t size, int usage,
         return -EINVAL;
     }
 
+     if (usage & GRALLOC_USAGE_PRIVATE_SMI_HEAP) {
+        return -EINVAL;
+    }
+
     if (m->framebuffer == NULL) {
         ALOGE("%s: Invalid framebuffer", __FUNCTION__);
         return -EINVAL;

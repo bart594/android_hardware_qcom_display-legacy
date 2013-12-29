@@ -126,7 +126,7 @@ int IonController::allocate(alloc_data& data, int usage,
         ret = mPmemAlloc->alloc_buffer(data);
         return ret;
     } else if (usage & GRALLOC_USAGE_PRIVATE_SMI_HEAP) {
-        data.allocType |= private_handle_t::PRIV_FLAGS_USES_PMEM_SMI;
+        data.allocType |= private_handle_t::PRIV_FLAGS_USES_PMEM_ADSP;
         ret = mPmemSmipoolAlloc->alloc_buffer(data);
         return ret;
     }
@@ -196,14 +196,14 @@ sp<IMemAlloc> IonController::getAllocator(int flags)
     sp<IMemAlloc> memalloc;
     if (flags & private_handle_t::PRIV_FLAGS_USES_ION) {
         memalloc = mIonAlloc;
-        ALOGW("gralloc: memalloc is mIonAlloc (ION)\n");
+        //ALOGW("gralloc: memalloc is mIonAlloc (ION)\n");
 #ifdef USE_PMEM_CAMERA
     } else if (flags & private_handle_t::PRIV_FLAGS_USES_PMEM_ADSP) {
         memalloc = mPmemAlloc;
-        ALOGW("gralloc: memalloc is mPmemAlloc (PMEM ADSP)\n");
-    } else if (flags & private_handle_t::PRIV_FLAGS_USES_PMEM_SMI) {
+        //ALOGW("gralloc: memalloc is mPmemAlloc (PMEM ADSP)\n");
+    } else if (flags & private_handle_t::PRIV_FLAGS_USES_PMEM_ADSP) {
         memalloc = mPmemSmipoolAlloc;
-        ALOGW("gralloc: memalloc is mPmemSmipoolAlloc (PMEM SMI)\n");
+        //ALOGW("gralloc: memalloc is mPmemSmipoolAlloc (PMEM SMI)\n");
 #endif
     } else {
         ALOGE("%s: Invalid flags passed: 0x%x", __FUNCTION__, flags);

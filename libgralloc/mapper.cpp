@@ -204,10 +204,7 @@ int terminateBuffer(gralloc_module_t const* module,
 
     if (hnd->base != 0) {
         // this buffer was mapped, unmap it now
-        if (hnd->flags & (private_handle_t::PRIV_FLAGS_USES_PMEM |
-                          private_handle_t::PRIV_FLAGS_USES_PMEM_ADSP |
-                          private_handle_t::PRIV_FLAGS_USES_PMEM_SMI |
-                          private_handle_t::PRIV_FLAGS_USES_ASHMEM |
+        if (hnd->flags & (private_handle_t::PRIV_FLAGS_USES_PMEM_ADSP |
                           private_handle_t::PRIV_FLAGS_USES_ION)) {
             if (hnd->pid != getpid()) {
                 // ... unless it's a "master" pmem buffer, that is a buffer
@@ -344,9 +341,8 @@ int gralloc_perform(struct gralloc_module_t const* module,
                 } else {
                     if (memoryFlags & GRALLOC_USAGE_PRIVATE_ION)
                         hnd->flags =  private_handle_t::PRIV_FLAGS_USES_ION;
-                    else
-                        hnd->flags =  private_handle_t::PRIV_FLAGS_USES_ASHMEM;
-                }
+                        }
+
 
                 hnd->size = size;
                 hnd->offset = offset;

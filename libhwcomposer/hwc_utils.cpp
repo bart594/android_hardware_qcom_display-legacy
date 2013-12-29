@@ -63,9 +63,9 @@ void initContext(hwc_context_t *ctx)
 
     //Initialize dyn threshold to 2.0
     //system property can override this value
-    ctx->dynThreshold = 2.0;
+    ctx->dynThreshold = 1.9;
 
-    property_get("debug.hwc.dynThreshold", value, "2");
+    property_get("debug.hwc.dynThreshold", value, "1.9");
     ctx->dynThreshold = atof(value);
 
     pthread_mutex_init(&(ctx->vstate.lock), NULL);
